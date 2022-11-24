@@ -12,8 +12,18 @@
     <artifactId>NetWorkFlowAnalysis</artifactId>
 
     <properties>
+        <redis.version>4.3.1</redis.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <!-- 直接跟redis做读取，而不是flink用redis做写入连接器-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${redis.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
