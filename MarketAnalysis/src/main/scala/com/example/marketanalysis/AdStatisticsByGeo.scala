@@ -94,7 +94,7 @@ object AdStatisticsByGeo {
 
       // 如果是第一次处理，注册定时器,每天00：00触发
       if(curCount == 0){
-        // 当前系统时间=》 当前天数 =》 明天
+        // 当前处理时间=》 当前天数 =》 明天
         val ts = ( ctx.timerService().currentProcessingTime() / (1000 * 60 * 60 * 24) + 1) * (1000 * 60 * 60 * 24)
         resetTime.update(ts)
         ctx.timerService().registerProcessingTimeTimer(ts)
@@ -119,6 +119,7 @@ object AdStatisticsByGeo {
 
     override def onTimer(timestamp: Long, ctx: KeyedProcessFunction[(Long, Long), AdClickEvent, AdClickEvent]#OnTimerContext, out: Collector[AdClickEvent]): Unit = {
       // 定时器触发时，清空状态
+      // timestamp是当前定时器触发的时间戳，跟状态保存的时间戳比较
       if(timestamp == resetTime.value()){
         isSentBlackList.clear()
         countState.clear()
