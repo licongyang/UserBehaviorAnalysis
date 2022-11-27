@@ -1,6 +1,5 @@
 package com.example.orderpay_detect
 
-import com.example.orderpay_detect.TxMatchDetect.TxPayMatch
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.co.ProcessJoinFunction
 import org.apache.flink.streaming.api.scala._
