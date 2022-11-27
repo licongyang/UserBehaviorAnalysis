@@ -46,6 +46,8 @@ class OrderTimeoutWarning extends KeyedProcessFunction[Long, OrderEvent, OrderRe
     // 只考虑一个create 一个pay
     if(value.eventType == "create" && !isPayed){
       // 如果遇到了create事件，并且pay没有来过，注册定时器开始等待
+      // 设置事件事件之后十五分种触发定时器，
+      // 问题是来了数据，必须等15分钟才能处理
       ctx.timerService().registerEventTimeTimer(value.eventTime * 1000L + 15 * 60 * 1000L)
     }else if(value.eventType == "pay"){
       // 如果是pay事件，直接把状态改为true
